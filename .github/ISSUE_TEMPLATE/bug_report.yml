@@ -1,0 +1,29 @@
+name: Bug report
+description: Something didn't work as expected
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected and what you saw instead.
+    validations:
+      required: true
+  - type: input
+    id: setup
+    attributes:
+      label: Mac, macOS version and monitor(s)
+      placeholder: Mac mini M4, macOS 27.0, ASUS VG34WQML5A + MSI MP223
+    validations:
+      required: true
+  - type: dropdown
+    id: size
+    attributes:
+      label: Interface size involved
+      options: ["100%", "125%", "150%", "175%", "200%", "Not size-related"]
+  - type: textarea
+    id: report
+    attributes:
+      label: Diagnostic report
+      description: Advanced ▸ Diagnostics ▸ Export, or `scalekit-diag report`. Remove serial numbers if you prefer.
+      render: markdown

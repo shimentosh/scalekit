@@ -1,0 +1,19 @@
+# SwiftPM
+.build/
+.swiftpm/
+
+# App bundle and packaging output (scripts/build-app.sh)
+build/
+
+# Xcode per-user state (if the package is ever opened in Xcode)
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+xcuserdata/
+DerivedData/
+
+# Generated reports; keep the directory
+reports/*
+!reports/.gitkeep
+
+# macOS
+.DS_Store

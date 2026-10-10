@@ -1,0 +1,48 @@
+name: Monitor report
+description: Tell others how ScaleKit works with your monitor
+title: "[Monitor] <brand model>, <resolution>"
+labels: ["monitor-report"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks! Each report helps someone with the same monitor decide whether ScaleKit fixes their blurry or tiny text.
+  - type: input
+    id: monitor
+    attributes:
+      label: Monitor
+      placeholder: ASUS TUF Gaming VG34WQML5A, 34", 3440 × 1440
+    validations:
+      required: true
+  - type: input
+    id: mac
+    attributes:
+      label: Mac and macOS version
+      placeholder: Mac mini M4, macOS 27.0
+    validations:
+      required: true
+  - type: input
+    id: connection
+    attributes:
+      label: Connection and refresh rate
+      placeholder: HDMI, 120 Hz
+  - type: checkboxes
+    id: sizes
+    attributes:
+      label: Sizes that worked (sharp, kept, no problems)
+      options:
+        - label: 100%
+        - label: 125%
+        - label: 150%
+        - label: 175%
+        - label: 200%
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Brightness flicker, refresh rate, screenshots, sleep/wake, anything unusual.
+  - type: textarea
+    id: report
+    attributes:
+      label: Diagnostic report (optional)
+      description: Output of `scalekit-diag report` (remove serial numbers if you prefer).
+      render: markdown
