@@ -108,7 +108,7 @@ ScaleKit was designed so that you can't get stuck with a broken screen:
 
 ### Download
 
-1. Download **ScaleKit.zip** from [Releases](https://github.com/shimentosh/scalekit/releases) and unzip it.
+1. Download **ScaleKit-<version>.zip** from [Releases](https://github.com/shimentosh/scalekit/releases) and unzip it.
 2. Move **ScaleKit.app** to Applications and open it.
 3. The build is not notarized yet, so the first time macOS blocks it. Open **System Settings ▸ Privacy & Security**,
    scroll down and click **Open Anyway**. (Since macOS 15, right-click ▸ Open no longer works for this.)
