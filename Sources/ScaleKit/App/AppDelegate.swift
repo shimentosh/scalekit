@@ -13,6 +13,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        if let directory = ScreenshotRenderer.directoryArgument() {
+            // README screenshots: draw offscreen, change nothing, quit.
+            for window in NSApp.windows { window.orderOut(nil) }
+            ScreenshotRenderer.run(model: model, directory: directory)
+            exit(0)
+        }
         NSApp.setActivationPolicy(.regular)
         NSApp.activate()
         model.start()

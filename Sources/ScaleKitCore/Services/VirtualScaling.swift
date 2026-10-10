@@ -70,7 +70,7 @@ public struct VirtualScalingPlan: Codable, Hashable, Sendable {
     /// Plain-language trade-offs shown before the user tries it.
     public var tradeOffs: [String] {
         var notes = [
-            "Experimental: uses a private macOS API (virtual display + mirroring). A macOS update can break it; ScaleKit then shows it as unavailable.",
+            "Uses a private macOS API (virtual display + mirroring). If a macOS update removes it, ScaleKit shows this size as unavailable.",
             "Works only while ScaleKit is running. Quitting ScaleKit, or a crash, returns the monitor to its normal mode.",
             String(format: "The GPU renders %.1f× the pixels of the native desktop.", renderLoad),
         ]

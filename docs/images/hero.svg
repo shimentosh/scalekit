@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" font-family="-apple-system, 'SF Pro Display', 'Inter', 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d0b24"/>
+      <stop offset="0.55" stop-color="#2a1048"/>
+      <stop offset="1" stop-color="#062a45"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0.2" cy="0.15" r="0.6">
+      <stop offset="0" stop-color="#7c5cff" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#7c5cff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.9" cy="0.95" r="0.55">
+      <stop offset="0" stop-color="#18c8ff" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#18c8ff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e1b4b"/>
+      <stop offset="1" stop-color="#0c4a6e"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <rect width="1280" height="640" fill="url(#glow1)"/>
+  <rect width="1280" height="640" fill="url(#glow2)"/>
+
+  <!-- Copy -->
+  <text x="80" y="150" fill="#c4b5fd" font-size="17" font-weight="600" letter-spacing="2.5">FOR MAC · APPLE SILICON · FREE &amp; OPEN SOURCE</text>
+  <text x="78" y="238" fill="#ffffff" font-size="92" font-weight="800" letter-spacing="-2">ScaleKit</text>
+  <text x="80" y="300" fill="#e5e7eb" font-size="34" font-weight="600">Sharp 125% · 150% · 175%</text>
+  <text x="80" y="345" fill="url(#accent)" font-size="34" font-weight="700">on ultrawide &amp; 1440p monitors</text>
+  <text x="80" y="404" fill="#9ca3af" font-size="22">No blur. Native resolution. 120 Hz kept.</text>
+  <text x="80" y="436" fill="#9ca3af" font-size="22">No SIP changes, no admin rights.</text>
+
+  <g transform="translate(80 486)">
+    <rect width="152" height="44" rx="22" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.18"/>
+    <text x="76" y="29" fill="#e5e7eb" font-size="17" font-weight="600" text-anchor="middle">HiDPI · 2×</text>
+    <rect x="166" width="152" height="44" rx="22" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.18"/>
+    <text x="242" y="29" fill="#e5e7eb" font-size="17" font-weight="600" text-anchor="middle">3440 × 1440</text>
+    <rect x="332" width="122" height="44" rx="22" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.18"/>
+    <text x="393" y="29" fill="#e5e7eb" font-size="17" font-weight="600" text-anchor="middle">120 Hz</text>
+  </g>
+
+  <!-- Ultrawide monitor -->
+  <g filter="url(#soft)">
+    <rect x="690" y="150" width="520" height="236" rx="18" fill="#0b0b12" stroke="#3f3f55" stroke-width="2"/>
+    <rect x="704" y="164" width="492" height="208" rx="8" fill="url(#screen)"/>
+    <rect x="922" y="386" width="56" height="54" fill="#23232f"/>
+    <rect x="880" y="436" width="140" height="10" rx="5" fill="#2e2e3d"/>
+  </g>
+  <!-- Desktop inside -->
+  <rect x="704" y="164" width="492" height="16" rx="0" fill="#000" fill-opacity="0.35"/>
+  <circle cx="716" cy="172" r="3" fill="#e5e7eb" fill-opacity="0.8"/>
+  <text x="728" y="176" fill="#e5e7eb" font-size="10" font-weight="700">Finder</text>
+  <rect x="740" y="198" width="240" height="150" rx="8" fill="#111827" fill-opacity="0.92" stroke="#ffffff" stroke-opacity="0.12"/>
+  <circle cx="754" cy="210" r="4" fill="#ff5f57"/><circle cx="767" cy="210" r="4" fill="#febc2e"/><circle cx="780" cy="210" r="4" fill="#28c840"/>
+  <text x="756" y="240" fill="#ffffff" font-size="17" font-weight="700">Crisp text</text>
+  <text x="756" y="262" fill="#cbd5e1" font-size="12">Rendered at 5504 × 2304,</text>
+  <text x="756" y="278" fill="#cbd5e1" font-size="12">scaled to 3440 × 1440.</text>
+  <rect x="756" y="296" width="150" height="8" rx="4" fill="#a78bfa" fill-opacity="0.8"/>
+  <rect x="756" y="312" width="110" height="8" rx="4" fill="#38bdf8" fill-opacity="0.7"/>
+  <rect x="1000" y="198" width="170" height="150" rx="8" fill="#111827" fill-opacity="0.85" stroke="#ffffff" stroke-opacity="0.12"/>
+  <text x="1016" y="232" fill="#ffffff" font-size="34" font-weight="800">125%</text>
+  <text x="1016" y="256" fill="#94a3b8" font-size="12">looks like 2752 × 1152</text>
+  <rect x="1016" y="272" width="72" height="22" rx="11" fill="#16a34a" fill-opacity="0.25"/>
+  <text x="1052" y="287" fill="#4ade80" font-size="11" font-weight="700" text-anchor="middle">Verified</text>
+  <rect x="1016" y="304" width="62" height="22" rx="11" fill="#7c3aed" fill-opacity="0.3"/>
+  <text x="1047" y="319" fill="#c4b5fd" font-size="11" font-weight="700" text-anchor="middle">HiDPI</text>
+
+  <!-- Size chips -->
+  <g transform="translate(690 480)" font-weight="700" font-size="20" text-anchor="middle">
+    <rect width="92" height="56" rx="14" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.15"/>
+    <text x="46" y="35" fill="#cbd5e1">100%</text>
+    <rect x="107" width="92" height="56" rx="14" fill="url(#accent)"/>
+    <text x="153" y="35" fill="#0b0b12">125%</text>
+    <rect x="214" width="92" height="56" rx="14" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.15"/>
+    <text x="260" y="35" fill="#cbd5e1">150%</text>
+    <rect x="321" width="92" height="56" rx="14" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.15"/>
+    <text x="367" y="35" fill="#cbd5e1">175%</text>
+    <rect x="428" width="92" height="56" rx="14" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.15"/>
+    <text x="474" y="35" fill="#cbd5e1">200%</text>
+  </g>
+  <text x="1200" y="608" fill="#6b7280" font-size="16" text-anchor="end">shimanto.xyz</text>
+</svg>

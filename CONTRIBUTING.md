@@ -38,3 +38,12 @@ instead of `@State`, because the `@State` macro plugin ships only with Xcode.
 - **Private APIs stay in `Sources/ScaleKitVirtualBridge`,** looked up at run time, with a graceful fallback.
 - No network access, analytics, admin rights, SIP or Gatekeeper changes.
 - Tests must not touch real displays. Use `FakeDisplayHardware`.
+
+## README screenshots
+
+The screenshots are rendered by the app itself, offscreen and read-only (no screen-recording permission needed):
+
+```sh
+swift build --product ScaleKit
+.build/debug/ScaleKit --render-screenshots /tmp/scalekit-shots
+```

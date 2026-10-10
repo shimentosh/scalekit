@@ -1,5 +1,6 @@
 import AppKit
 import ScaleKitCore
+import ScaleKitVirtual
 import SwiftUI
 
 /// An illustrative preview of each interface size, drawn inside this window.
@@ -108,8 +109,13 @@ private struct DensityPanel: View {
     }
 
     /// The real "looks like" size when macOS offers the profile, else the ideal one.
+    private var virtualPlan: VirtualScalingPlan? {
+        evaluation.flatMap { model.virtualPlan(for: $0, on: display) }
+    }
+
     private var logical: (size: PixelSize, isOffered: Bool)? {
         if let selection = evaluation?.selection { return (selection.mode.logical, true) }
+        if let virtualPlan { return (virtualPlan.points, true) }
         guard let native = display?.nativeResolution.value else { return nil }
         return (target.idealLogicalSize(native: native), false)
     }
@@ -129,7 +135,7 @@ private struct DensityPanel: View {
                     .monospacedDigit()
                 Spacer()
                 if let evaluation {
-                    StatusBadge(status: evaluation.status)
+                    StatusBadge(status: model.displayStatus(evaluation, on: display))
                 }
             }
 
@@ -145,7 +151,9 @@ private struct DensityPanel: View {
                 StatTile(
                     title: "Desktop looks like",
                     value: "\(logical.isOffered ? "" : "≈ ")\(logical.size)",
-                    caption: logical.isOffered
+                    caption: virtualPlan != nil
+                        ? "Points of workspace, sharp through a virtual HiDPI display"
+                        : logical.isOffered
                         ? "Points of workspace with this profile"
                         : "Not offered sharply by macOS on this display; shown for comparison only")
                 let capacity = EditorDensity.capacity(for: logical.size)
@@ -168,7 +176,7 @@ private struct DensityPanel: View {
                 }
             }
 
-            if evaluation?.status == .unsupported {
+            if let evaluation, model.displayStatus(evaluation, on: display) == .unsupported {
                 MessageBox(
                     kind: .info,
                     messages: ["macOS has no sharp \(target) mode for this display. The main window lists the closest modes it does offer."])

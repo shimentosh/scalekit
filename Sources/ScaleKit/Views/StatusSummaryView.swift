@@ -1,4 +1,5 @@
 import ScaleKitCore
+import ScaleKitVirtual
 import SwiftUI
 
 /// What the selected monitor is doing right now, plus the recommendation.
@@ -61,7 +62,9 @@ struct RecommendationView: View {
     @ViewState private var showsScore = false
 
     var body: some View {
-        if let recommendation = model.recommendation {
+        if let plan = model.virtualPlan, let evaluation = model.selectedEvaluation {
+            VirtualRecommendationView(plan: plan, evaluation: evaluation)
+        } else if let recommendation = model.recommendation {
             VStack(alignment: .leading, spacing: 8) {
                 SectionHeading("Recommended for \(recommendation.desired)")
                 VStack(alignment: .leading, spacing: 10) {
@@ -157,5 +160,42 @@ struct ScoreBar: View {
             }
         }
         .frame(height: 5)
+    }
+}
+
+/// When macOS has no sharp mode for the size, the virtual display is the
+/// recommendation: HiDPI, native signal, preferred refresh, same shape.
+private struct VirtualRecommendationView: View {
+    @Environment(AppModel.self) private var model
+    let plan: VirtualScalingPlan
+    let evaluation: ProfileEvaluation
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            SectionHeading("Recommended for \(plan.target.description)")
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Image(systemName: "sparkles")
+                        .foregroundStyle(Color.accentColor)
+                    Text("\(plan.target.description) · \(plan.points.description) HiDPI @ \(RefreshRate.label(plan.refreshRate))")
+                        .font(.headline)
+                        .monospacedDigit()
+                        .fixedSize(horizontal: false, vertical: true)
+                    Spacer(minLength: 0)
+                }
+                HStack(spacing: 6) {
+                    StatusBadge(status: model.displayStatus(evaluation, on: model.selectedDisplay))
+                    TagLabel(text: "Virtual display", tint: .purple)
+                    if model.isVirtualCurrent(evaluation, on: model.selectedDisplay) {
+                        TagLabel(text: "Active now", tint: .green)
+                    }
+                }
+                Text("Rendered at \(plan.pixels.description) and scaled down to the panel's native \(plan.native.description), so text stays sharp. Keeps \(RefreshRate.label(plan.refreshRate)) and the panel's \(plan.native.aspectLabel) shape.")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .card()
+        }
     }
 }

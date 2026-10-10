@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="380" viewBox="0 0 1200 380" font-family="-apple-system, 'SF Pro Text', 'Inter', 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f1020"/><stop offset="1" stop-color="#0b2236"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#38bdf8"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#a78bfa"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="380" rx="24" fill="url(#bg)"/>
+
+  <g font-size="15">
+    <!-- Step 1 -->
+    <rect x="40" y="70" width="320" height="230" rx="18" fill="#ffffff" fill-opacity="0.04" stroke="#a78bfa" stroke-opacity="0.6" stroke-width="2"/>
+    <circle cx="76" cy="106" r="18" fill="url(#accent)"/>
+    <text x="76" y="112" fill="#0b0b12" font-weight="800" text-anchor="middle">1</text>
+    <text x="106" y="112" fill="#ffffff" font-size="19" font-weight="700">Virtual HiDPI display</text>
+    <text x="64" y="160" fill="#cbd5e1">ScaleKit creates a display with</text>
+    <text x="64" y="184" fill="#cbd5e1">one HiDPI mode at your size.</text>
+    <text x="64" y="232" fill="#ffffff" font-size="26" font-weight="800">2752 × 1152 pt</text>
+    <text x="64" y="262" fill="#a78bfa" font-weight="600">@ 2× = 5504 × 2304 px</text>
+
+    <path d="M370 185 H 432" stroke="#a78bfa" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <!-- Step 2 -->
+    <rect x="440" y="70" width="320" height="230" rx="18" fill="#ffffff" fill-opacity="0.04" stroke="#818cf8" stroke-opacity="0.6" stroke-width="2"/>
+    <circle cx="476" cy="106" r="18" fill="url(#accent)"/>
+    <text x="476" y="112" fill="#0b0b12" font-weight="800" text-anchor="middle">2</text>
+    <text x="506" y="112" fill="#ffffff" font-size="19" font-weight="700">Mirror + downsample</text>
+    <text x="464" y="160" fill="#cbd5e1">Your monitor mirrors it. The GPU</text>
+    <text x="464" y="184" fill="#cbd5e1">scales the 2× image down, the</text>
+    <text x="464" y="208" fill="#cbd5e1">way Retina Macs do.</text>
+    <text x="464" y="262" fill="#818cf8" font-weight="600">1.6× oversampled for sharp text</text>
+
+    <path d="M770 185 H 832" stroke="#a78bfa" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <!-- Step 3 -->
+    <rect x="840" y="70" width="320" height="230" rx="18" fill="#ffffff" fill-opacity="0.04" stroke="#38bdf8" stroke-opacity="0.6" stroke-width="2"/>
+    <circle cx="876" cy="106" r="18" fill="url(#accent)"/>
+    <text x="876" y="112" fill="#0b0b12" font-weight="800" text-anchor="middle">3</text>
+    <text x="906" y="112" fill="#ffffff" font-size="19" font-weight="700">Native panel, 120 Hz</text>
+    <text x="864" y="160" fill="#cbd5e1">The monitor keeps its native</text>
+    <text x="864" y="184" fill="#cbd5e1">signal at a fixed refresh rate.</text>
+    <text x="864" y="232" fill="#ffffff" font-size="26" font-weight="800">3440 × 1440</text>
+    <text x="864" y="262" fill="#38bdf8" font-weight="600">sharp text · 120 Hz · 21:9</text>
+  </g>
+  <text x="600" y="342" fill="#9ca3af" font-size="14" text-anchor="middle">Quit ScaleKit, or let the countdown run out, and macOS restores your monitor automatically.</text>
+</svg>

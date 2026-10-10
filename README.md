@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="docs/images/icon.png" width="128" height="128" alt="ScaleKit app icon">
+<img src="docs/images/hero.svg" alt="ScaleKit: sharp 125%, 150% and 175% HiDPI scaling on ultrawide and 1440p monitors for Mac" width="100%">
 
-# ScaleKit
+# <img src="docs/images/icon.png" width="44" height="44" alt="" align="top"> ScaleKit
 
 **Sharp, HiDPI scaling at 125%, 150% and 175% for ultrawide and 1440p monitors on Mac.**
 
@@ -17,6 +17,13 @@ without losing 120 Hz.
 
 [Download](#install) · [How it works](#how-it-works) · [FAQ](#faq) · [Docs](#documentation) · [Report your monitor](#help-other-people-with-the-same-monitor)
 
+<br>
+
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/screenshot-main-light.png">
+  <img src="docs/images/screenshot-main-dark.png" alt="ScaleKit main window: 125% verified on an ASUS VG34WQML5A ultrawide, looks like 2752 × 1152, HiDPI 2×, 120 Hz" width="900">
+</picture>
+
 </div>
 
 ---
@@ -30,6 +37,10 @@ You plug a 34″ ultrawide (3440 × 1440) or a 27″ 1440p monitor into a Mac an
   a lower resolution and stretches it to the panel.
 - The only sharp option, **200% HiDPI**, makes the interface huge. On 3440 × 1440 it looks like 1720 × 720.
 - There is **no 125%, 150% or 175%** that stays sharp.
+
+<p align="center">
+  <img src="docs/images/blurry-vs-sharp.svg" alt="Blurry macOS Larger Text compared with sharp ScaleKit 125% HiDPI on the same 3440 × 1440 monitor" width="100%">
+</p>
 
 This happens because macOS only offers sharp in-between ("scaled") HiDPI sizes on displays that Apple classifies as
 high density, like Retina screens and 4K/5K monitors. A 34″ 3440 × 1440 panel is about 109 PPI, and a 27″ 1440p panel
@@ -61,19 +72,9 @@ ScaleKit never quietly switches you to a blurry mode.
 
 ## How it works
 
-```
-               ┌──────────────────────────────────────────┐
-  macOS draws  │  Virtual HiDPI display (created by       │   e.g. 125%:
-  your desktop │  ScaleKit) · 2752 × 1152 pt @ 2×         │   rendered at 5504 × 2304 px
-  here  ─────▶ │                                          │
-               └────────────────────┬─────────────────────┘
-                                    │ mirrored + downsampled by the GPU
-                                    ▼
-               ┌──────────────────────────────────────────┐
-               │  Your monitor · native 3440 × 1440       │   sharp text, native signal,
-               │  @ 120 Hz                                │   refresh rate kept
-               └──────────────────────────────────────────┘
-```
+<p align="center">
+  <img src="docs/images/how-it-works.svg" alt="How ScaleKit works: a virtual HiDPI display at 2752 × 1152 points is rendered at 5504 × 2304 pixels, mirrored and downsampled to the native 3440 × 1440 panel at 120 Hz" width="100%">
+</p>
 
 1. ScaleKit creates a virtual display with exactly one HiDPI mode at the size you picked.
 2. Your real monitor mirrors that display. macOS renders the desktop at 2× and the GPU scales it down to your panel.
@@ -144,6 +145,19 @@ You can switch or turn off scaling any time from the menu bar icon.
   pulsing, turn Adaptive-Sync off in the monitor's menu.
 - Screenshots at 125% are saved at the rendered size (for example 5504 × 2304) because they capture the HiDPI desktop.
   This is normal HiDPI behaviour, just like on a Retina Mac.
+
+## Screenshots
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/images/screenshot-preview-dark.png" alt="Scaling preview: an illustrative mock-up of each interface size"><br><sub><b>Preview each size</b> before changing anything (drawn in a window, your display isn't touched).</sub></td>
+    <td width="50%"><img src="docs/images/screenshot-advanced-dark.png" alt="Advanced window listing every display mode with rendering path, refresh rate and flags"><br><sub><b>Every mode macOS reports</b>, with rendering path, refresh rate and the active one highlighted.</sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/images/screenshot-main-light.png" alt="ScaleKit main window in light mode"><br><sub><b>Light and dark</b>, native SwiftUI.</sub></td>
+    <td width="50%"><img src="docs/images/screenshot-settings-dark.png" alt="Settings: preferred refresh rate, confirmation timeout, open at login"><br><sub><b>Settings:</b> preferred refresh rate, confirmation timeout, open at login.</sub></td>
+  </tr>
+</table>
 
 ## Features
 
