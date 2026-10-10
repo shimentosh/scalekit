@@ -39,6 +39,8 @@ public struct AppPaths: Sendable {
     public var virtualTrialJournalFile: URL { root.appendingPathComponent("virtual-trial.json") }
     /// The virtual-display scaling the user kept, re-applied at launch.
     public var virtualScalingFile: URL { root.appendingPathComponent("virtual-scaling.json") }
+    /// Copies of monitors' color profiles, assigned to their virtual displays.
+    public var colorProfilesDirectory: URL { root.appendingPathComponent("ColorProfiles", isDirectory: true) }
     public var reportsDirectory: URL { root.appendingPathComponent("Reports", isDirectory: true) }
 }
 

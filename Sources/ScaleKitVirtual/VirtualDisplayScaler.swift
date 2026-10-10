@@ -125,7 +125,16 @@ public final class VirtualDisplayScaler {
     /// virtual desktop's size while it mirrors.
     public var pinsPhysicalMode = true
 
+    /// Give the virtual display the monitor's color profile, so frames that
+    /// reach the panel without color conversion look the same as converted ones.
+    public var matchesPhysicalColorProfile = true
+    public var colorProfilesDirectory = AppPaths.standard().colorProfilesDirectory
+
     private var virtualDisplay: SKVirtualDisplay?
+    /// ColorSync device whose custom profile ScaleKit set, cleared on teardown.
+    private var colorProfileDevice: CFUUID?
+    /// The monitor profile last given to the virtual display.
+    private var matchedProfile: Data?
     /// Origins of the other displays before scaling, restored on teardown.
     private var savedOrigins: [DisplayArrangement.Placement] = []
     /// Where the neighbours belong while scaling is on.
@@ -235,6 +244,7 @@ public final class VirtualDisplayScaler {
                 throw VirtualScalingError.verificationFailed(
                     verification.notes.joined(separator: " ") + " Steps: \(trace.joined(separator: "; ")).")
             }
+            matchColorProfile(physicalID: display.id, virtualID: virtualID, displayKey: display.key)
             let newSession = VirtualScalingSession(
                 id: UUID(), plan: plan, physicalID: display.id, physicalKey: display.key,
                 physicalName: display.displayName, virtualID: virtualID, previousMode: previous,
@@ -244,6 +254,7 @@ public final class VirtualDisplayScaler {
             }
             session = newSession
             repairTimes = []
+            scheduleColorProfileChecks(for: newSession)
             Log.virtual.notice("Virtual scaling active: \(plan.summary, privacy: .public)")
             return newSession
         } catch {
@@ -287,6 +298,9 @@ public final class VirtualDisplayScaler {
         guard let session else { return .inactive }
         let state = mirrorState()
         guard state == .scaling || state == .notMirrored else { return state }
+        if state == .scaling {
+            matchColorProfile(physicalID: session.physicalID, virtualID: session.virtualID, displayKey: session.physicalKey)
+        }
         let now = Date()
         repairTimes = repairTimes.filter { now.timeIntervalSince($0) < 60 }
         let mirrorLost = state == .notMirrored
@@ -504,6 +518,7 @@ public final class VirtualDisplayScaler {
     @discardableResult
     private func tearDown(physicalID: CGDirectDisplayID?, previous: DisplayModeInfo?) async -> DisplayModeInfo? {
         let virtualID = virtualDisplay?.displayID ?? kCGNullDirectDisplay
+        clearColorProfile()
         virtualDisplay?.terminationHandler = nil
         virtualDisplay?.invalidate()
         virtualDisplay = nil
@@ -578,7 +593,52 @@ public final class VirtualDisplayScaler {
         }
     }
 
+    /// macOS swaps the monitor's own profile for one regenerated from its
+    /// EDID once it joins the mirror set (a 2.2 curve becomes 1.96 on an
+    /// ASUS VG34WQML5A), so the profile is read only after mirroring, and
+    /// again whenever it may have changed. Unchanged profiles are not re-sent.
+    private func matchColorProfile(physicalID: CGDirectDisplayID, virtualID: CGDirectDisplayID, displayKey: String) {
+        guard matchesPhysicalColorProfile, let icc = VirtualColorProfile.iccData(of: physicalID),
+              matchedProfile.map({ !VirtualColorProfile.isSame($0, icc) }) ?? true
+        else { return }
+        let device = VirtualColorProfile.assign(
+            icc, to: virtualID, fileName: Self.profileFileName(displayKey: displayKey), directory: colorProfilesDirectory)
+        colorProfileDevice = device ?? colorProfileDevice
+        matchedProfile = device == nil ? nil : icc
+        trace.append(device == nil ? "color profile not matched" : "color profile matched to the monitor (\(icc.count) B)")
+        Log.virtual.notice("Virtual display color profile \(device == nil ? "not matched" : "matched to the monitor", privacy: .public)")
+    }
+
+    /// The monitor's mirror profile is written a moment after mirroring starts.
+    private func scheduleColorProfileChecks(for started: VirtualScalingSession) {
+        guard matchesPhysicalColorProfile else { return }
+        Task { [weak self] in
+            for delay in [1, 3] {
+                try? await Task.sleep(for: .seconds(delay))
+                guard let self, self.session?.id == started.id else { return }
+                self.matchColorProfile(
+                    physicalID: started.physicalID, virtualID: started.virtualID, displayKey: started.physicalKey)
+            }
+        }
+    }
+
+    private func clearColorProfile() {
+        matchedProfile = nil
+        guard let device = colorProfileDevice else { return }
+        colorProfileDevice = nil
+        VirtualColorProfile.clear(device: device)
+    }
+
+    /// One profile file per monitor, overwritten on each activation.
+    static func profileFileName(displayKey: String) -> String {
+        let safe = displayKey.unicodeScalars.map {
+            CharacterSet.alphanumerics.contains($0) || $0 == "-" ? Character($0) : "_"
+        }
+        return "monitor-" + String(safe)
+    }
+
     private func virtualDisplayTerminated() {
+        clearColorProfile()
         virtualDisplay = nil
         guard let ended = session else { return }
         session = nil

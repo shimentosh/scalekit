@@ -67,6 +67,7 @@ public final class VirtualScalingService {
         self.guardLauncher = guardLauncher
         guardLogURL = paths.guardLogFile
         scaler.identityGeneration = (try? identityStore.load())?.generation ?? 1
+        scaler.colorProfilesDirectory = paths.colorProfilesDirectory
         scaler.onUnexpectedTermination = { [weak self] session in
             self?.virtualDisplayVanished(session)
         }

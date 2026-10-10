@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Virtual scaling: the virtual display now uses the monitor's own color profile. macOS gave it a generic ~2.2
+  tone curve, and frames that reached the panel without color conversion (during some transitions and page loads)
+  looked briefly lighter on monitors with a different curve. `scalekit-diag virtual --no-color-match` turns it off.
+
 ## 0.1.0 (2026-10-10)
 
 First public release.

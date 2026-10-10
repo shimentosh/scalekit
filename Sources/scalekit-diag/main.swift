@@ -22,7 +22,7 @@ let usage = """
                                [--simulate-hang] [--exit-without-revert]
       scalekit-diag virtual    --check [--display ID] [--refresh HZ]
       scalekit-diag virtual    --percent P [--display ID] [--seconds N] [--timeout N] [--refresh HZ]
-                               [--simulate-hang] [--exit-without-revert] [--no-pin]
+                               [--simulate-hang] [--exit-without-revert] [--no-pin] [--no-color-match]
       scalekit-diag recover
       scalekit-diag journal
 
@@ -377,6 +377,8 @@ extension CLI {
         service.confirmationTimeout = TimeInterval(args.int("timeout") ?? 30)
         service.scaler.pinsPhysicalMode = !args.flags.contains("no-pin")
         out("Pin monitor to its native timing while mirrored: \(service.scaler.pinsPhysicalMode ? "yes" : "no (--no-pin)")")
+        service.scaler.matchesPhysicalColorProfile = !args.flags.contains("no-color-match")
+        out("Give the virtual display the monitor's color profile: \(service.scaler.matchesPhysicalColorProfile ? "yes" : "no (--no-color-match)")")
         service.onOutcome = { outcome in out("Outcome: \(outcome)") }
         let targetID = display.id
         services.events.addHandler { event in
